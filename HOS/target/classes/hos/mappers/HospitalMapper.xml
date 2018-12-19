@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hos.dao.HosDao">
+	<resultMap type="Hospital" id="HospitalResult">
+		<result property="city" column="city"/>
+		<result property="name" column="name"/>
+		<result property="seq" column="seq"/>
+		<result property="grade1" column="grade1"/>
+		<result property="grade2" column="grade2"/>
+		<result property="time1" column="time1"/>
+		<result property="time2" column="time2"/>
+		<result property="tel" column="tel"/>
+		<result property="address" column="address"/>
+	</resultMap>
+	<select id="listByCity" parameterType="Map" resultMap="HospitalResult">
+		select * from t_hospital 
+		where 1=1
+		<if test="city!=null">
+			and city=#{city}
+		</if>
+		
+	</select>
+	<select id="countByCity" parameterType="Map" resultType="int">
+		select count(*) from t_hospital 
+		where 1=1
+		<if test="city!=null">
+			and city=#{city}
+		</if>
+		
+	</select>
+	<insert id="insertHospital" parameterType="Hospital">
+		insert into t_hospital
+		<set>
+			<if test="city!=null"> city=#{city},</if>
+			<if test="name!=null"> name=#{name},</if>
+			<if test="seq!=null"> seq=#{seq},</if>
+			<if test="grade1!=null"> grade1=#{grade1},</if>
+			<if test="grade2!=null"> grade2=#{grade2},</if>
+			<if test="time1!=null"> time1=#{time1},</if>
+			<if test="time2!=null"> time2=#{time2},</if>
+			<if test="tel!=null"> tel=#{tel},</if>
+			<if test="address!=null"> address=#{address},</if>
+		</set>
+	</insert>
+
+
+</mapper>
